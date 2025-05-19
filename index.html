@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<!--All of this was mocked up quickly in Figma, some of these css rules might be unnecessary and just boilerplate from Figma and it's export tools.-->
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <style>
+        /*Bahnschrift import required since the version packaged with Windows doesn't support cyrillic characters*/
+        @font-face {
+            font-family: "Bahnschrift-SemiBold";
+            font-style: normal;
+            font-weight: 600;
+            src: url('fonts/bahnschrift.ttf') format("truetype");
+        }
+
+        body {
+            margin: 0;
+            background-color: #FFCC00;
+        }
+
+        .screen * {
+            box-sizing: border-box;
+        }
+
+        .screen div {
+            -webkit-text-size-adjust: none;
+        }
+
+        :root {
+            --black: #000000;
+
+            --font-size-m: 14vmin;
+
+            --font-family-bahnschrift-semibold: "Bahnschrift-SemiBold", Helvetica;
+
+            --row-height: 16.8vmin
+        }
+
+        .bahnschrift-semi-bold-black-48px {
+            color: var(--black);
+            font-family: var(--font-family-bahnschrift-semibold);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .frame-1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 84vmin;
+            height: 84vmin;
+            overflow: hidden;
+        }
+
+        /*I regret going for 0 JS*/
+        @keyframes text-scroll {
+            0%    {transform: translateY(0);}
+            13%   {transform: translateY(0);}
+            18%   {transform: translateY(calc(var(--row-height)*-1 - 0.3vmin));}
+            19%   {transform: translateY(calc(var(--row-height)*-1 + 0.6vmin));}
+            20%   {transform: translateY(calc(var(--row-height)*-1));}
+            33%   {transform: translateY(calc(var(--row-height)*-1));}
+            38%   {transform: translateY(calc(var(--row-height)*-2 - 0.3vmin));}
+            39%   {transform: translateY(calc(var(--row-height)*-2 + 0.6vmin));}
+            40%   {transform: translateY(calc(var(--row-height)*-2));}
+            53%   {transform: translateY(calc(var(--row-height)*-2));}
+            58%   {transform: translateY(calc(var(--row-height)*-3 - 0.3vmin));}
+            59%   {transform: translateY(calc(var(--row-height)*-3 + 0.6vmin));}
+            60%   {transform: translateY(calc(var(--row-height)*-3));}
+            73%   {transform: translateY(calc(var(--row-height)*-3));}
+            78%   {transform: translateY(calc(var(--row-height)*-4 - 0.3vmin));}
+            79%   {transform: translateY(calc(var(--row-height)*-4 + 0.6vmin));}
+            80%   {transform: translateY(calc(var(--row-height)*-4));}
+            93%   {transform: translateY(calc(var(--row-height)*-4));}
+            98%   {transform: translateY(calc(var(--row-height)*-5 - 0.3vmin));}
+            99%   {transform: translateY(calc(var(--row-height)*-5 + 0.6vmin));}
+            100%  {transform: translateY(calc(var(--row-height)*-5));}
+        }
+
+        .scrolling-text {
+            text-align: center;
+            height: auto;
+            width: auto;
+            position: relative;
+            margin: auto;
+            animation: text-scroll 10s infinite;
+        }
+
+        .gradient {
+            z-index: 1;
+            position: absolute;
+            width: 84vmin;
+            height: calc(var(--font-size-m)*3);
+            margin: auto;
+        }
+
+        .gradient.lower-gradient {
+            background: linear-gradient(180deg, rgba(255, 204.00000303983688, 0, 0) 0%, rgb(255, 204.00000303983688, 0) 100%);
+            bottom: 0;
+        }
+
+        .gradient.upper-gradient {
+            background: linear-gradient(180deg, rgba(255, 204.00000303983688, 0) 0%, rgb(255, 204.00000303983688, 0, 0) 100%);
+            top:0
+        }
+
+        div.container ~ div {
+            z-index: 2;
+        }
+
+        .x {
+            height: auto;
+            width: auto;
+            background-color: transparent;
+            position: absolute;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        @keyframes exlm-tl-anim {
+            0%      {transform: rotate(0);}
+            20%     {transform: rotate(0);}
+            25%     {transform: rotate(90deg);}
+            45%     {transform: rotate(90deg);}
+            50%     {transform: rotate(180deg);}
+            70%     {transform: rotate(180deg);}
+            75%     {transform: rotate(270deg);}
+            95%     {transform: rotate(270deg);}
+            100%    {transform: rotate(360deg);}
+        }
+
+        .exlm-top-left-group {
+            left: calc(50vw - 46vmin);
+            top: calc(50vh - 46vmin);
+            transform-origin: 5.135vmin 11.75vmin;
+            animation: exlm-tl-anim 7s infinite;
+        }
+
+        @keyframes upper-anim {
+            0% {transform: translateY(0);}
+            40% {transform: translateY(0);}
+            50% {transform: translateY(-5vmin);}
+            90% {transform: translateY(-5vmin);}
+            100% {transform: translateY(0);}
+        }
+
+        .exlm-top-left-group > .upper {
+            animation: upper-anim 3.5s infinite;
+        }
+
+        .upper {
+            left: 3.3vmin;
+            top: 0vmin;
+        }
+
+        @keyframes right-anim {
+            0% {transform: translateX(0);}
+            40% {transform: translateX(0);}
+            50% {transform: translateX(5vmin);}
+            90% {transform: translateX(5vmin);}
+            100% {transform: translateX(0);}
+        }
+
+        .exlm-top-left-group > .right {
+            animation: right-anim 3.5s infinite;
+            animation-composition: accumulate;
+        }
+
+        .right {
+            left: 6.5vmin;
+            top: 3.4vmin;
+            transform: rotate(90.00deg);
+        }
+
+        @keyframes lower-anim {
+            0% {transform: translateY(0);}
+            40% {transform: translateY(0);}
+            50% {transform: translateY(5vmin);}
+            90% {transform: translateY(5vmin);}
+            100% {transform: translateY(0);}
+        }
+
+        .exlm-top-left-group > .lower {
+            animation: lower-anim 3.5s infinite;
+            animation-composition: accumulate;
+        }
+
+        .lower {
+            left: 3.3vmin;
+            top: 6.8vmin;
+            transform: rotate(-180.00deg);
+        }
+
+        @keyframes left-anim {
+            0% {transform: translateX(0);}
+            40% {transform: translateX(0);}
+            50% {transform: translateX(-5vmin);}
+            90% {transform: translateX(-5vmin);}
+            100% {transform: translateX(0);}
+        }
+
+        .exlm-top-left-group > .left {
+            animation: left-anim 3.5s infinite;
+            animation-composition: accumulate;
+        }
+
+        .left {
+            left: 0;
+            top: 3.4vmin;
+            transform: rotate(-90.00deg);
+        }
+
+        @keyframes exlm-br-anim {
+            0%      {transform: rotate(0);}
+            20%     {transform: rotate(0);}
+            25%     {transform: rotate(-90deg);}
+            45%     {transform: rotate(-90deg);}
+            50%     {transform: rotate(-180deg);}
+            70%     {transform: rotate(-180deg);}
+            75%     {transform: rotate(-270deg);}
+            95%     {transform: rotate(-270deg);}
+            100%    {transform: rotate(-360deg);}
+        }
+
+        .exlm-bottom-right-group {
+            left: calc(50vw + 38vmin);
+            top: calc(50vh + 22vmin);
+            transform-origin: 5.135vmin 11.75vmin;
+            animation: exlm-br-anim 7s infinite;
+            animation-delay: 1s;
+        }
+
+        .exlm-bottom-right-group > .upper {
+            animation: upper-anim 3.5s infinite;
+            animation-delay: 1s;
+        }
+
+        .exlm-bottom-right-group > .right {
+            animation: right-anim 3.5s infinite;
+            animation-composition: accumulate;
+            animation-delay: 1s;
+        }
+
+        .exlm-bottom-right-group > .lower {
+            animation: lower-anim 3.5s infinite;
+            animation-composition: accumulate;
+            animation-delay: 1s;
+        }
+
+        .exlm-bottom-right-group > .left {
+            animation: left-anim 3.5s infinite;
+            animation-composition: accumulate;
+            animation-delay: 1s;
+        }
+
+        @keyframes qstm-tr-anim {
+            0%      {transform: rotate(0);}
+            28%     {transform: rotate(0);}
+            34%     {transform: rotate(-120deg);}
+            61%     {transform: rotate(-120deg);}
+            67%     {transform: rotate(-240deg);}
+            94%     {transform: rotate(-240deg);}
+            100%    {transform: rotate(-360deg);}
+        }
+
+        .qstm-top-right-group {
+            right: calc(50vw - 43vmin);
+            top: calc(50vh - 27vmin);
+            transform-origin: 4.725vmin 11.65vmin;
+            animation: qstm-tr-anim 6s infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes low-right-anim {
+            0% {transform: translateX(0) translateY(0);}
+            40% {transform: translateX(0) translateY(0);}
+            50% {transform: translateX(4.33vmin) translateY(2.5vmin);}
+            90% {transform: translateX(4.33vmin) translateY(2.5vmin);}
+            100% {transform: translateX(0);}
+        }
+
+        .qstm-top-right-group > .low-right {
+            animation: low-right-anim 4s infinite;
+            animation-delay: 1s;
+            animation-composition: accumulate;
+        }
+
+        .low-right {
+            left: 4.35vmin;
+            top: 5.225vmin;
+            transform: rotate(120.00deg);
+        }
+
+        @keyframes low-left-anim {
+            0% {transform: translateX(0) translateY(0);}
+            40% {transform: translateX(0) translateY(0);}
+            50% {transform: translateX(-4.33vmin) translateY(2.5vmin);}
+            90% {transform: translateX(-4.33vmin) translateY(2.5vmin);}
+            100% {transform: translateX(0);}
+        }
+
+        .qstm-top-right-group > .low-left {
+            animation: low-left-anim 4s infinite;
+            animation-delay: 1s;
+            animation-composition: accumulate;
+        }
+
+        .low-left {
+            left: -1.325vmin;
+            top: 4.675vmin;
+            transform: rotate(-120.00deg);
+        }
+
+        .qstm-top-right-group > .up {
+            animation: upper-anim 4s infinite;
+            animation-delay: 1s;
+        }
+
+        .up {
+            left: 2vmin;
+            top: 0;
+        }
+
+        .interrobang-group {
+            position: absolute;
+            left: calc(50vw - 55vmin);
+            top: calc(50vh + 5vmin);
+        }
+
+        .exlm-bottom-left-group {
+            transform-origin: 5.235vmin 11.8vmin;
+            animation: exlm-br-anim 7s infinite;
+            animation-delay: 2s;
+        }
+
+        .qstm-bottom-left-group {
+            left: -1.15vmin;
+            transform-origin: 6.235vmin 11.8vmin;
+            animation: exlm-tl-anim 7s infinite;
+            animation-delay: 2s;
+        }
+
+        .interrobang-group .upper {
+            animation: upper-anim 3.5s infinite;
+            animation-delay: 2s;
+        }
+
+        .interrobang-group .right {
+            animation: right-anim 3.5s infinite;
+            animation-delay: 2s;
+            animation-composition: accumulate;
+        }
+
+        .interrobang-group .lower {
+            animation: lower-anim 3.5s infinite;
+            animation-delay: 2s;
+            animation-composition: accumulate;
+        }
+
+        .interrobang-group .left {
+            animation: left-anim 3.5s infinite;
+            animation-delay: 2s;
+            animation-composition: accumulate;
+        }
+
+        .qstm-bottom-left-group > .upper {
+            left: 3.6vmin;
+            top: 0vmin;
+        }
+
+        .qstm-bottom-left-group > .right {
+            left: 6.6vmin;
+            top: 3.6vmin;
+            transform: rotate(90.00deg);
+        }
+
+        .qstm-bottom-left-group > .lower {
+            left: 3.0vmin;
+            top: 6.7vmin;
+            transform: rotate(-180.00deg);
+        }
+
+        .qstm-bottom-left-group > .left {
+            left: 0;
+            top: 3.0vmin;
+            transform: rotate(-90.00deg);
+        }
+
+        @keyframes extinguisherr-anim {
+            0%    {transform: translate(0);}
+            100%  {transform: translate(200vmin,-200vmin) rotate(5.0turn);}
+        }
+
+        .extinguisherr {
+            position: absolute;
+            top: calc(50vh + 50vw);
+            left: -20vmin;
+            animation: extinguisherr-anim 6s linear infinite;
+        }
+
+        .extinguisherr > img {
+            height: 20vmin;
+            width: 20vmin;
+        }
+
+        @keyframes waterdeer-anim {
+            0%    {transform: translate(0);}
+            100%  {transform: translate(-200vmin,-200vmin);}
+        }
+
+        .waterdeer {
+            position: absolute;
+            top: calc(50vh + 50vw);
+            right: -23vmin;
+            animation: waterdeer-anim 6s linear infinite;
+            animation-delay: 4s;
+        }
+
+        .waterdeer > img {
+            height: 23vmin;
+            width: 23vmin;
+        }
+
+        @keyframes horse-horse-anim {
+            0%    {transform: translate(0);}
+            100%  {transform: translate(200vw,0);}
+        }
+
+        .horse-horse {
+            position: absolute;
+            bottom: 18vh;
+            left: -30vw;
+            animation: horse-horse-anim 6s linear infinite;
+            animation-delay: 4s;
+        }
+
+        .horse-horse > img {
+            height: 33vmin;
+            width: 33vmin;
+        }
+
+        @keyframes gender-person-anim {
+            0%    {transform: translate(0);}
+            100%  {transform: translate(-200vw,0);}
+        }
+
+        .gender-person {
+            position: absolute;
+            top: 23vh;
+            right: -21vmin;
+            animation: gender-person-anim 6s linear infinite;
+            animation-delay: 3s;
+        }
+
+        .gender-person > img {
+            height: 21vmin;
+            width: 21vmin;
+        }
+
+        .author {
+            bottom: 1vmin;
+            right: 1vmin;
+
+        }
+
+        .cc {
+            bottom: 1vmin;
+            left: 1vmin;
+        }
+
+        .static {
+            font-family: var(--font-family-bahnschrift-semibold);
+            font-size: 4vmin;
+            z-index: 2;
+            position: absolute;
+        }
+      </style>
+</head>
+<html>
+    <body>
+        <div class="frame-1 screen">
+            <div class="author static">
+                made by Aurora Bee
+            </div>
+            <div class="cc static">
+                CC-BY-SA
+            </div>
+            <div class="container">
+                <h1 class="scrolling-text bahnschrift-semi-bold-black-48px">
+                    !WARNING!<br>!FIGYELEM!<br>!ВНИМАНИЕ!<br>!УВАГА!<br>!WARNUNG!<br>!WARNING!<br>!FIGYELEM!<br>!ВНИМАНИЕ!<br>!УВАГА!<br>!WARNUNG!</h1>
+                <div class="gradient lower-gradient"></div>
+                <div class="gradient upper-gradient"></div>
+            </div>
+            <div class="exlm-top-left-group x">
+                <div class="upper x bahnschrift-semi-bold-black-48px">!</div>
+                <div class="right x bahnschrift-semi-bold-black-48px">!</div>
+                <div class="lower x bahnschrift-semi-bold-black-48px">!</div>
+                <div class="left x bahnschrift-semi-bold-black-48px">!</div>
+            </div>
+            <div class="exlm-bottom-right-group x">
+                <div class="upper x bahnschrift-semi-bold-black-48px">!</div>
+                <div class="right x bahnschrift-semi-bold-black-48px">!</div>
+                <div class="lower x bahnschrift-semi-bold-black-48px">!</div>
+                <div class="left x bahnschrift-semi-bold-black-48px">!</div>
+            </div>
+            <div class="qstm-top-right-group x">
+                <div class="low-right x bahnschrift-semi-bold-black-48px">?</div>
+                <div class="low-left x bahnschrift-semi-bold-black-48px">?</div>
+                <div class="up x bahnschrift-semi-bold-black-48px">?</div>
+            </div>
+            <div class="interrobang-group">
+                <div class="qstm-bottom-left-group x">
+                    <div class="upper x bahnschrift-semi-bold-black-48px">?</div>
+                    <div class="right x bahnschrift-semi-bold-black-48px">?</div>
+                    <div class="lower x bahnschrift-semi-bold-black-48px">?</div>
+                    <div class="left x bahnschrift-semi-bold-black-48px">?</div>
+                </div>
+                <div class="exlm-bottom-left-group x">
+                    <div class="upper x bahnschrift-semi-bold-black-48px">!</div>
+                    <div class="right x bahnschrift-semi-bold-black-48px">!</div>
+                    <div class="lower x bahnschrift-semi-bold-black-48px">!</div>
+                    <div class="left x bahnschrift-semi-bold-black-48px">!</div>
+                </div>
+            </div>
+            <div class="extinguisherr">
+                <img src="svgs/extinguisherr.svg"
+                    alt="Extinguisherr">
+            </div>
+            <div class="waterdeer">
+                  <img src="svgs/waterdeer.svg"
+                  alt="Waterdeer">
+            </div>
+            <div class="horse-horse">
+                  <img src="svgs/horsehorse.svg"
+                alt="HorseHorse"></div>
+            <div class="gender-person">
+                  <img src="svgs/gender-person.svg"
+                  alt="GenderPerson">
+            </div>
+        </div>
+    </body>
+</html>
